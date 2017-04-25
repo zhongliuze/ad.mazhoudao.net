@@ -1,0 +1,194 @@
+<include file="Usermenu/nav" />
+
+
+
+			    <div class="span10" style="margin-top: 20px;">
+			      <!--主体内容-->
+			        <div class="pc_rt">
+			        	<div class="page-header">
+				          <h3>我的下线</h3><h5>推广链接：{$under_url}</h5>
+				        </div>
+				        
+				        <!--PC端查询-->
+						<form action="/index.php" method="get">
+                        <div class="data hidden-phone">
+							<input type="hidden" name="m" value="home"/>
+							<input type="hidden" name="c" value="usermenu"/>
+							<input type="hidden" name="a" value="user_underline"/>
+			        		<input type="text" placeholder="用户名" style="margin-top: 6px ; margin-bottom: 5px; margin-left: 10px;" name="username" value="{$username}">
+							<if condition="$begin_date neq is_null()">
+			        		<div class="date_rt">
+			        			<span style="display: inline-block; float: left; margin-top: 2px; margin-right: 5px;">日期</span>
+					            <input class="laydate-icon-molv" id="date_pc1"  name="begin_date" value="{$begin_date|date='Y-m-d',###}">
+					            <span>&nbsp;—&nbsp;</span>
+					            <input class="laydate-icon-molv" id="date_pc2" name="end_date" value="{$end_date|date='Y-m-d',###}">
+								<button  class="btn btn-success" type="submit">查询</button>
+			        		</div>
+								<elseif condition="$begin_date eq is_null() "/>
+								<div class="date_rt">
+									<span style="display: inline-block; float: left; margin-top: 2px; margin-right: 5px;">日期</span>
+									<input class="laydate-icon-molv" id="date_pc1" name="begin_date" >
+									<span>&nbsp;—&nbsp;</span>
+									<input class="laydate-icon-molv" id="date_pc2" name="end_date" >
+									<button  class="btn btn-success" type="submit">查询</button>
+								</div>
+							</if>
+				        </div>
+						</form>
+                        <!--移动端查询-->
+							<form action="/index.php" method="get">
+			        	<div class="data visible-phone" style="padding-right: 0;">
+							<input type="hidden" name="m" value="home"/>
+							<input type="hidden" name="c" value="usermenu"/>
+							<input type="hidden" name="a" value="user_underline"/>
+			        		<input type="text" placeholder="用户名" style="margin-top: 15px ; margin-bottom: 10px; margin-left: 12px;" name="username">
+							<if condition="$begin_date neq is_null()">
+			        		<div class="date_mb_rt">
+			        			<p style="margin: 0;">日期</p>
+			        			<input class="laydate-icon_mb" id="date_mb1" value="" name="begin_date" value="{$begin_date|date='Y-m-d',###}">
+					            <p style="margin: 0;">到</p>
+					            <input class="laydate-icon_mb" id="date_mb2" value="" name="end_date" value="{$end_date|date='Y-m-d',###}">
+								<button  class="btn btn-success" type="submit">查询</button>
+					        </div>
+								<elseif condition="$begin_date eq is_null() "/>
+								<div class="date_mb_rt">
+									<p style="margin: 0;">日期</p>
+									<input class="laydate-icon_mb" id="date_mb1" value="" name="begin_date" >
+									<p style="margin: 0;">到</p>
+									<input class="laydate-icon_mb" id="date_mb2" value="" name="end_date" >
+									<button  class="btn btn-success" type="submit">查询</button>
+								</div>
+							</if>
+				        </div>
+							</form>
+				        
+			        	<p>
+						  <small>根据查询条件，有 {$underlineCount} 条记录</small>
+						</p>
+			        	<!--PC端表格-->
+			        	<div class="biaoge1 hidden-phone" style="margin-bottom: 30px; margin-top: 30px;">
+			        		<table class="table table-striped " style="">
+						        <thead>
+							        <tr>
+								        <th>序号</th>
+								        <th>用户名</th>
+								        <th>微信公众号</th>
+								        <th>企业名称</th>
+								        <th>注册时间</th>
+								        <!--<th>注册链接</th>-->
+								        
+							        </tr>
+						        </thead>
+						        <tbody>
+								<volist name="user_under" id="underline">
+							        <tr>
+								        <td>{$underline.id}</td>
+								        <td>{$underline.username}</td>
+								        <td>{$underline.public_name}</td>
+								        <td>{$underline.company_name}</td>
+								        <td>{$underline.register_time|date='Y-m-d H:i:s',###}</td>
+										<!--<input type="hidden" value="{$underline.url}" id="url{$underline.id}"/>-->
+										<!--<td><div class="pos" ><button class="btn btn-mini btn-primary copy_btn" type="button" id="{$underline.id}">复制网址</button></div></td>-->
+							        </tr></volist>
+
+							        
+						        </tbody>
+						    </table>
+
+							<div class="pagination pagination-centered">{$pageRes}</div>
+						</div>
+
+
+	      				<!--移动端表格-->
+	      				<ul class="biaoge2 visible-phone">
+							<volist name="user_under" id="underline">
+	      					<li>
+	      						<h4><font color="#1ca573">{$underline.username}</font></h4>
+	      						<p>微信公众号：{$underline.public_name}</p>
+	      						<p>企业名称：{$underline.company_name}</p>
+	      						<p>注册：{$underline.register_time|date='Y-m-d H:i:s',###}</p>
+								<!--<input type="hidden" value="{$underline.url}" id="url_m{$underline.id}"/>-->
+								<!--<p><div class="pos" ><button class="btn btn-mini btn-primary copy_btn_m" type="button" id="m{$underline.id}">复制网址</button></div></p>-->
+	      					</li>
+							</volist>
+
+	      					<!--移动端加载样式-->
+
+	      				</ul>
+
+	      				
+	      				
+	      				
+			    	</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="container" style="margin-top: 10px;">
+			<hr>
+			<footer>
+	        	<p style="text-align: center;">© 2017 江苏中点通文化传媒有限公司 <a href="#" style="margin-left: 20px;">联系客服</a></p>
+	        </footer>
+		</div>
+		
+		
+		
+		
+
+	    <script type="text/javascript">
+		!function(){
+		
+		//laydate.skin('molv');
+		
+		laydate({
+		   elem: '#date_pc1'
+		})
+		laydate({
+		   elem: '#date_pc2'
+		})
+		laydate({
+		   elem: '#date_mb1'
+		})
+		laydate({
+		   elem: '#date_mb2'
+		})
+		}();
+
+
+		</script>
+		<script type="text/javascript">
+			$(function(){
+
+                /*$("body").on('click','.copy_btn',function(){
+                    var id = $(this).attr('id');
+                    var mid = id.split('button');
+                    var real_id = mid[1];
+                    var url = 'url' + id;
+                    $('#' + id).zclip({
+                        path:'__PUBLIC__/Plugin/Zclip/ZeroClip	board.swf', //记得把ZeroClipboard.swf引入到项目中
+                        copy:function(){
+                            return $('#' + url ).val();
+                        }
+                    });
+                });
+
+                $("body").on('click','.copy_btn_m',function(){
+                    var id = $(this).attr('id');
+                    var mid = id.split('m');
+                    var real_id = mid[1];
+                    var url = 'url_m' + real_id;
+                    $('#' + id).zclip({
+                        path:'__PUBLIC__/Plugin/Zclip/ZeroClip	board.swf', //记得把ZeroClipboard.swf引入到项目中
+                        copy:function(){
+                            return $('#' + url ).val();
+                        }
+                    });
+                });*/
+			});
+		</script>
+	</body>
+
+</html>

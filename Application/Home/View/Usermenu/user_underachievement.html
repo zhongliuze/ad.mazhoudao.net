@@ -1,0 +1,163 @@
+<include file="Usermenu/nav" />
+			    
+			    <div class="span10" style="margin-top: 20px;">
+			      <!--主体内容-->
+			        <div class="pc_rt">
+			        	<div class="page-header">
+				          <h3>我的下线业绩</h3>
+				        </div>
+						<p>
+							<small>提示：每月初更新上月下线发展业绩</small>
+						</p>
+				        <!--PC端查询-->
+						<form action="/index.php" method="get">
+                        <div class="data hidden-phone">
+			        		<span style="margin-left: 20px; color: #999; font-size: 12px;">根据查询条件，有 {$achievementCount} 条记录</span>
+							<input type="hidden" name="m" value="home"/>
+							<input type="hidden" name="c" value="usermenu"/>
+							<input type="hidden" name="a" value="user_underachievement"/>
+							<if condition="$begin_date neq is_null()">
+			        		<div class="date_rt">
+			        			<span style="display: inline-block; float: left; margin-top: 2px; margin-right: 5px;">日期</span>
+					            <input class="laydate-icon-molv" id="date_pc1" value="{$begin_date|date='Y-m-d',###}" name="begin_date">
+					            <span>&nbsp;—&nbsp;</span>
+					            <input class="laydate-icon-molv" id="date_pc2" value="{$end_date|date='Y-m-d',###}" name="end_date">
+								<button  class="btn btn-success" type="submit">查询</button>
+								<!--<button class="btn btn-success" type="button" onclick="search_button.check()">查询</button>-->
+			        		</div>
+								<elseif condition="$begin_date eq is_null() "/>
+								<div class="date_rt">
+									<span style="display: inline-block; float: left; margin-top: 2px; margin-right: 5px;">日期</span>
+									<input class="laydate-icon-molv" id="date_pc1"  name="begin_date">
+									<span>&nbsp;—&nbsp;</span>
+									<input class="laydate-icon-molv" id="date_pc2" name="end_date">
+									<button  class="btn btn-success" type="submit">查询</button>
+									<!--<button class="btn btn-success" type="button" onclick="search_button.check()">查询</button>-->
+								</div>
+							</if>
+
+				        </div>
+						</form>
+
+                        <!--移动端查询-->
+						<form action="/union.yanqingkong.com/index.php" method="get">
+			        	<div class="data visible-phone" style="padding-right: 0;">
+			        		<span style="margin-left: 10px; color: #999; font-size: 12px;">根据查询条件，有 0 条记录</span>
+							<input type="hidden" name="m" value="home"/>
+							<input type="hidden" name="c" value="usermenu"/>
+							<input type="hidden" name="a" value="user_achievement"/>
+							<if condition="$begin_date neq is_null()">
+			        		<div class="date_mb_rt">
+			        			<p style="margin: 0;">日期</p>
+			        			<input class="laydate-icon_mb" id="date_mb1" value="{$begin_date|date='Y-m-d',###}" name="begin_date">
+					            <p style="margin: 0;">到</p>
+					            <input class="laydate-icon_mb" id="date_mb2" value="{$end_date|date='Y-m-d',###}" name="end_date">
+								<button  class="btn btn-success" type="submit">查询</button>
+
+					        </div>
+								<elseif condition="$begin_date eq is_null() "/>
+								<div class="date_mb_rt">
+									<p style="margin: 0;">日期</p>
+									<input class="laydate-icon_mb" id="date_mb1"  name="begin_date">
+									<p style="margin: 0;">到</p>
+									<input class="laydate-icon_mb" id="date_mb2"  name="end_date">
+									<button  class="btn btn-success" type="submit">查询</button>
+
+								</div>
+							</if>
+
+				        </div>
+
+			        	<!--PC端表格-->
+			        	<div class="biaoge1 hidden-phone" style="margin-bottom: 30px; margin-top: 30px;">
+			        		<table class="table table-striped " style="">
+						        <thead>
+							        <tr>
+								        <th>日期</th>
+										<th>发展下线人数</th>
+										<th>下线总收益</th>
+								        <th>分成金额(元)</th>
+								        <th>说明</th>
+								        
+							        </tr>
+						        </thead>
+						        <tbody>
+
+								<volist name="achievements" id="achievement">
+									<tr >
+										<td>{$achievement.re_time|date='Y-m-d',###}</td>
+										<td>{$achievement.underline_number}</td>
+										<td>{$achievement.underline_money}</td>
+										<td>{$achievement.divided_amount}</td>
+										<td>{$achievement.acc_explain}</td>
+
+									</tr>
+								</volist>
+
+						        </tbody>
+						    </table>
+
+
+						</div>
+
+							<div class="pagination pagination-centered">{$pageRes}</div>
+
+	      				<!--移动端表格-->
+	      				<ul class="biaoge2 visible-phone">
+							<volist name="achievements" id="achievement">
+	      					<li>
+	      						<span>{$achievement.re_time|date='Y-m-d',###}</span>
+	      						<h4>分成金额： </h4>
+	      						<p>说明：{$achievement.acc_explain}</p>
+	      						<p>发展下线人数：{$achievement.underline_number}</p>
+	      						<p>下线总收益：{$achievement.underline_money}</p>
+	      						<p>分成金额(元)：{$achievement.divided_amount}元</p>
+	      						<p></p>
+	      						<p></p>
+	      						<p></p>
+	      					</li>
+							</volist>
+
+	      					<!--移动端加载样式-->
+	      				</ul>
+
+
+	      				
+			    	</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="container" style="margin-top: 10px;">
+			<hr>
+			<footer>
+	        	<p style="text-align: center;">© 2017 南京触手文化发展有限公司 <a href="#" style="margin-left: 20px;">联系客服</a></p>
+	        </footer>
+		</div>
+
+	    
+	    <script>
+		!function(){
+		
+		//laydate.skin('molv');
+		
+		laydate({
+		   elem: '#date_pc1'
+		})
+		laydate({
+		   elem: '#date_pc2'
+		})
+		laydate({
+		   elem: '#date_mb1'
+		})
+		laydate({
+		   elem: '#date_mb2'
+		})
+		}();
+		</script>
+	</body>
+
+</html>

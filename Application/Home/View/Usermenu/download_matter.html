@@ -1,0 +1,238 @@
+<include file="Usermenu/nav" />
+			    
+			    <div class="span10" style="margin-top: 20px;">
+			      <!--主体内容-->
+			        <div class="pc_rt">
+			        	<div class="page-header">
+				          <h3>素材下载</h3>
+				        </div>
+				        
+				        <!--PC端查询-->
+						<form action="/index.php" method="get">
+                        <div class="data hidden-phone">
+							<input type="hidden" name="m" value="home"/>
+							<input type="hidden" name="c" value="usermenu"/>
+							<input type="hidden" name="a" value="download_matter"/>
+			        		<input type="text" placeholder="书名" style="margin-top: 0px ; margin-bottom: 0; margin-left: 10px;" name="bookname" value="{$bookname}">
+			        		<div class="btn-group">
+								<if condition="$type_id eq is_null()">
+									<button class="btn dropdown-toggle" data-toggle="dropdown">全部类型 <span class="caret"></span></button>
+									<else />
+									<button class="btn dropdown-toggle" data-toggle="dropdown">{$type_name}&nbsp;&nbsp;<span class="caret"></span></button>
+								</if>
+
+				                <ul class="dropdown-menu">
+									<li><a href="{:U('home/usermenu/download_matter')}">全部类型</a></li>
+									<foreach name="matterTypes" item="type">
+										<li><a href="{:U('home/usermenu/download_matter')}?typeid={$key}">{$type}</a></li>
+									</foreach>
+				                </ul>
+				            </div>
+							<if condition="$begin_date neq is_null()">
+			        		<div class="date_rt">
+			        			<span style="display: inline-block; float: left; margin-top: 2px; margin-right: 5px;">日期</span>
+					            <input class="laydate-icon-molv" id="date_pc1" name="begin_date" value="{$begin_date|date='Y-m-d',###}">
+					            <span>&nbsp;—&nbsp;</span>
+					            <input class="laydate-icon-molv" id="date_pc2" name="end_date" value="{$end_date|date='Y-m-d',###}">
+								<button  class="btn btn-success" type="submit">查询</button>
+			        		</div>
+								<elseif condition="$begin_date eq is_null() "/>
+								<div class="date_rt">
+									<span style="display: inline-block; float: left; margin-top: 2px; margin-right: 5px;">日期</span>
+									<input class="laydate-icon-molv" id="date_pc1" name="begin_date" value="">
+									<span>&nbsp;—&nbsp;</span>
+									<input class="laydate-icon-molv" id="date_pc2" name="end_date" value="">
+									<button  class="btn btn-success" type="submit">查询</button>
+								</div>
+							</if>
+				        </div>
+						</form>
+							<form action="/index.php" method="get">
+                        <!--移动端查询-->
+			        	<div class="data visible-phone" style="padding-right: 0;">
+							<input type="hidden" name="m" value="home"/>
+							<input type="hidden" name="c" value="usermenu"/>
+							<input type="hidden" name="a" value="download_matter"/>
+			        		<input type="text" placeholder="书名" style="margin-top: 15px ; margin-bottom: 10px; margin-left: 12px;" name="bookname" value="{$bookname}">
+			        		<div class="btn-group" style="margin-left: 12px;">
+
+				                <button class="btn dropdown-toggle" data-toggle="dropdown">全部类型 <span class="caret"></span></button>
+				                <ul class="dropdown-menu">
+									<volist name="matterTypes" id="matterType">
+				                  		<li><a href="#">{$matterType.type_name}</a></li>
+									</volist>
+				                  
+				                </ul>
+				            </div>
+							<if condition="$begin_date neq is_null()">
+			        		<div class="date_mb_rt">
+			        			<p style="margin: 0;">日期</p>
+			        			<input class="laydate-icon_mb" id="date_mb1" value="" name="begin_date" value="{$begin_date|date='Y-m-d',###}">
+					            <p style="margin: 0;">到</p>
+					            <input class="laydate-icon_mb" id="date_mb2" value="" name="end_date" value="{$end_date|date='Y-m-d',###}">
+								<button  class="btn btn-success" type="submit">查询</button>
+					        </div>
+								<elseif condition="$begin_date eq is_null() "/>
+								<div class="date_mb_rt">
+									<p style="margin: 0;">日期</p>
+									<input class="laydate-icon_mb" id="date_mb1" value="" name="begin_date" value="">
+									<p style="margin: 0;">到</p>
+									<input class="laydate-icon_mb" id="date_mb2" value="" name="end_date" value="">
+									<button  class="btn btn-success" type="submit">查询</button>
+								</div>
+							</if>
+				        </div>
+				        
+			        	<p>
+						  <small>根据查询条件，有 {$matterCount} 条记录</small>
+						</p>
+			        	<!--PC端表格-->
+			        	<div class="biaoge1 hidden-phone" style="margin-bottom: 30px; margin-top: 30px;">
+			        		<table class="table table-striped " style="">
+						        <thead>
+							        <tr>
+								        <th>书号</th>
+								        <th>类型</th>
+								        <th>书名</th>
+								        <th>推广链接</th>
+								        <th>推广素材</th>
+								        <th>上传时间</th>
+										<th>已使用</th>
+								        
+							        </tr>
+						        </thead>
+						        <tbody>
+								<volist name="matters" id="matter">
+							        <tr>
+								        <td>{$matter.bid}</td>
+								        <td>{$matter.type_name}</td>
+								        <td>{$matter.catename}</td>
+										<input type="hidden" value="{$matter.after_url}" id="url{$matter.bid}"/>
+										<!--<td><div class="pos" ><button class="btn btn-mini btn-primary copy_btn" type="button" id="{$matter.bid}">复制网址</button></div></td>-->
+										<td><div class="pos" ><input value="{$matter.after_url}" readonly></div></td>
+								        <td><a href="{$matter.upload_file}">下载</a></td>
+								        <td>{$matter.upload_time|date='Y-m-d H:i:s',###}</td>
+										<td class="use-check-class">
+											<if condition="$matter.status eq 0"><input type="checkbox" id="use-check" name="use-check" value="{$matter.matter_id}">
+											<else/><input type="checkbox" id="use-check" name="use-check" value="{$matter.matter_id}" checked></if>
+											</td>
+										<!--<td class="use-check-class"><input type="button" id="use-check" value="{$matter.bid}"></td>-->
+							        </tr> </volist>
+
+							        
+						        </tbody>
+						    </table>
+
+							<div class="pagination pagination-centered">{$pageRes}</div>
+						</div>	
+						
+	      				<!--移动端表格-->
+	      				<ul class="biaoge2 visible-phone">
+							<volist name="matters" id="matter">
+	      					<li>
+	      						<h4>{$matter.catename}</h4>
+	      						<p>书号：{$matter.bid}</p>
+	      						<p>类型：{$matter.type_id}</p>
+								<input type="hidden" value="{$matter.after_url}" id="url_m{$matter.bid}"/>
+								<p>推广链接： <div class="pos" ><input value="{$matter.after_url}" readonly></div></p>
+	      						<p>推广素材：<a href="{$matter.upload_file}">下载</a></p>
+	      						<p>上传时间：{$matter.upload_time|date='Y-m-d H:i:s',###}</p>
+	      					</li>
+							</volist>
+
+	      				</ul>
+	      				
+	      				
+	      				
+			    	</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="container" style="margin-top: 10px;">
+			<hr>
+			<footer>
+	        	<p style="text-align: center;">© 2017 江苏中点通文化传媒有限公司 <a href="#" style="margin-left: 20px;">联系客服</a></p>
+	        </footer>
+		</div>
+
+		
+		
+
+
+	    <script>
+		!function(){
+		
+		//laydate.skin('molv');
+		
+		laydate({
+		   elem: '#date_pc1'
+		})
+		laydate({
+		   elem: '#date_pc2'
+		})
+		laydate({
+		   elem: '#date_mb1'
+		})
+		laydate({
+		   elem: '#date_mb2'
+		})
+		}();
+		</script>
+
+		<script type="text/javascript">
+			$(function(){
+
+				$("body").on('click','.copy_btn',function(){
+					var id = $(this).attr('id');
+					var mid = id.split('button');
+					var real_id = mid[1];
+					var url = 'url' + id;
+					$('#' + id).zclip({
+						path:'http://img1.yanqingkong.com/union/Plugin/Zclip/ZeroClip	board.swf', //记得把ZeroClipboard.swf引入到项目中
+						copy:function(){
+							return $('#' + url ).val();
+						}
+					});
+				});
+
+				$("body").on('click','.copy_btn_m',function(){
+					var id = $(this).attr('id');
+					var mid = id.split('m');
+					var real_id = mid[1];
+					var url = 'url_m' + real_id;
+					$('#' + id).zclip({
+						path:'http://img1.yanqingkong.com/union/Plugin/Zclip/ZeroClip	board.swf', //记得把ZeroClipboard.swf引入到项目中
+						copy:function(){
+							return $('#' + url ).val();
+						}
+					});
+				});
+
+                $('.use-check-class #use-check').click(function () {
+                    // 获取素材id
+                    var matter_id = $(this).val();
+                    var checked = 0;   //未选中
+                    //判断单选框未选中还是未选中
+					if($(this).is(':checked'))     //选中
+					    checked = 1;
+					else
+					    checked = 0;   // 未选中
+					var postUrl = '/index.php?m=home&c=usermenu&a=set_matter_status';
+					var data = {
+					    'matter_id' : matter_id,
+						'checked' : checked,
+					}
+					$.post(postUrl,data,function (result) {
+                        console.log(result);
+                    },'JSON');
+
+                });
+			});
+		</script>
+	</body>
+
+</html>

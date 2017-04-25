@@ -1,0 +1,121 @@
+<include file="Usermenu/nav" />
+			    
+			    <div class="span10" style="margin-top: 20px;">
+			      <!--主体内容-->
+			        <div class="pc_rt">
+			        	<div class="page-header">
+				          <h3>我的账户</h3>
+				        </div>
+				        <p class="lead">基本信息</p>
+				        <dl class="dl-horizontal">
+				            <dt class="text-info">用户名：</dt>
+				            <dd>{$user.username}</dd>
+				            
+				            <dt class="text-info">UID：</dt>
+				            <dd>{$user.user_id}</dd>
+				            
+				            <dt class="text-info">微信公众号ID：</dt>
+				            <dd>{$user.public_name}</dd>
+				            
+				            <dt class="text-info">渠道号：</dt>
+				            <dd>{$user.c_number}</dd>
+			            </dl>
+			        
+			        	<hr>
+			        	
+			        	<p class="lead">提现账号信息</p>
+						<if condition="$user.alipay_number eq is_null()">
+							<dl class="dl-horizontal">
+								<dt class="text-info">支付宝名称：</dt>
+								<dd><a class="btn btn-large" type="button" style="" href="{:U('/home/usermenu/user_accounts')}">绑定支付宝信息</a></dd>
+
+								<dt class="text-info">支付宝账号：</dt>
+								<dd></dd>
+
+							</dl>
+							<elseif condition="$user.alipay_number neq is_null() "/>
+
+							<dl class="dl-horizontal">
+
+								<dt class="text-info">支付宝名称：</dt>
+								<dd>{$user.column_name}</dd>
+
+								<dt class="text-info">支付宝账号：</dt>
+								<dd>{$user.alipay_number}</dd>
+
+							</dl>
+						</if>
+
+						<if condition="$user.company_name eq is_null()">
+
+							<hr>
+							<dl class="dl-horizontal">
+							<dt class="text-info">单位名称：</dt>
+
+							<dt class="text-info">开户行：</dt>
+
+							<dd><a class="btn btn-large" type="button" style="" href="{:U('/home/usermenu/user_account')}">绑定对公账户信息</a></dd>
+							<dt class="text-info">银行账号：</dt>
+
+							<dt class="text-info">营业执照：</dt>
+
+							<dt class="text-info">银行开户许可证：</dt>
+							</dl>
+
+							<elseif condition="$user.company_name neq is_null() "/>
+
+							<dl class="dl-horizontal">
+
+								<hr>
+								<dt class="text-info">对公账户审核状态：</dt>
+								<dd>
+									<if condition="$user.account_status eq 0"><font color="#ff8c00"><b>审核中</b></font>
+										<elseif condition="$user.account_status eq -1" /> <font color="red"><b>已驳回，<a style="color: red;" href="{:U('/home/usermenu/user_account')}"> <font color="blue">请点此重新填写</font></a></b></font>
+										<elseif condition="$user.account_status eq 1"/><font color="#32cd32"><b>审核通过</b></font>
+									</if>
+								</dd>
+								<hr>
+								<dt class="text-info">单位名称：</dt>
+								<dd>{$user.company_name}</dd>
+								<dt class="text-info">开户行：</dt>
+								<dd>{$user.bank}</dd>
+								<dt class="text-info">银行账号：</dt>
+								<dd>{$user.bank_account}</dd>
+								<dt class="text-info">营业执照：</dt>
+								<dd><a href="{$user.business}" target="_blank"><img  src="{$user.business}" style="width: 5%;height:5%;"></a>
+								<dt class="text-info">银行开户许可证：</dt>
+								<dd><a href="{$user.certificate}" target="_blank"><img src="{$user.certificate}" style="width: 5%;height:5%;"></a>
+								</dd>
+
+
+							</dl>
+						</if>
+						<dl class="dl-horizontal">
+
+							<hr>
+							<dt class="text-info">请注意：</dt>
+							<dd><p><small>1.请仔细填写对公账户信息，若审核不通过请重新填写；</small></p></dd>
+							<dd><p><small>2.对公账户审核通过后，将默认使用对公账户进行提现；</small></p></dd>
+							<dd><p><small>3.对公账户每个月结算一次，申请日期为每个月1至15日；</small></p></dd>
+							<dd><p><small>4.申请对公提现需开具相应增值税发票并上传至平台；</small></p></dd>
+							<dd><p><small>5.申请通过后，实际汇款日期为每月15日后的工作日。</small></p></dd>
+
+						</dl>
+
+					</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="container" style="margin-top: 10px;">
+			<hr>
+			<footer>
+	        	<p style="text-align: center;">© 2017 江苏中点通文化传媒有限公司 <a href="#" style="margin-left: 20px;">联系客服</a></p>
+	        </footer>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,439 @@
+<include file="Usermenu/nav" />
+			    
+			    <div class="span10" style="margin-top: 20px;">
+			      <!--主体内容-->
+			        <div class="pc_rt">
+			        	<div class="page-header">
+				          <h3>我的提现</h3>
+				        </div>
+				        
+				        <p class="lead" style="font-size: 18px;">当前可提现余额：
+				        	<font color="#1ca573">{$money}元</font>&nbsp;&nbsp;
+				        	<!--<button class="btn" type="button" data-toggle="modal" data-target="#myModal">提现</button>-->
+				        	<button class="btn" type="button" id="tixian-button" attr-zhifubao="{$userinfo.alipay_number}" attr-duigong="{$userinfo.account_status}" attr-zhifubao-money="{$money}" attr-duigong-money="{$duigong_money}">提现</button>
+				        </p>
+				        <p>
+							<small>1.提现以100元为单位，每提现一笔会收1%的服务费<br />
+								2.每日00:00分至00:15分不可提交提现申请<br />
+								3.若对公账户已绑定并审核通过，默认提现至对公账户<br/>
+							</small>
+
+
+						  <!--<small>1.提现以100元为单位，每提现一笔会收1%的服务费<br />
+							     2.当日业绩不在可提现范围内<br />
+							     3.每日00:00分至00:15分不可提交提现申请<br />
+							     4.对公账户可提现金额为截止上月底未提现现金的合计<br/>
+							     5.若对余额进行对公账户提现则需上传相应增值税发票
+						  </small>-->
+						  
+						</p>
+				        <!--PC端查询-->
+						<form action="/index.php" method="get">
+                        <div class="data hidden-phone">
+			        		<span style="margin-left: 20px; color: #999; font-size: 12px;">根据查询条件，有 {$withdrawalsCount} 条记录</span>
+							<input type="hidden" name="m" value="home"/>
+							<input type="hidden" name="c" value="usermenu"/>
+							<input type="hidden" name="a" value="user_withdrawals"/>
+							<if condition="$begin_date neq is_null()">
+			        		<div class="date_rt">
+			        			<span style="display: inline-block; float: left; margin-top: 2px; margin-right: 5px;">日期</span>
+					            <input class="laydate-icon-molv" id="date_pc1"  name="begin_date" value="{$begin_date|date='Y-m-d',###}">
+					            <span>&nbsp;—&nbsp;</span>
+					            <input class="laydate-icon-molv" id="date_pc2"  name="end_date" value="{$end_date|date='Y-m-d',###}">
+								<button  class="btn btn-success" type="submit">查询</button>
+			        		</div>
+								<elseif condition="$begin_date eq is_null() "/>
+								<div class="date_rt">
+									<span style="display: inline-block; float: left; margin-top: 2px; margin-right: 5px;">日期</span>
+									<input class="laydate-icon-molv" id="date_pc1"  name="begin_date">
+									<span>&nbsp;—&nbsp;</span>
+									<input class="laydate-icon-molv" id="date_pc2"  name="end_date">
+									<button  class="btn btn-success" type="submit">查询</button>
+								</div>
+							</if>
+				        </div>
+						</form>
+                        <!--移动端查询-->
+						<form action="/index.php" method="get">
+			        	<div class="data visible-phone" style="padding-right: 0;">
+			        		<span style="margin-left: 10px; color: #999; font-size: 12px;">根据查询条件，有 0 条记录</span>
+							<input type="hidden" name="m" value="home"/>
+							<input type="hidden" name="c" value="usermenu"/>
+							<input type="hidden" name="a" value="user_withdrawals"/>
+							<if condition="$begin_date neq is_null()">
+			        		<div class="date_mb_rt">
+			        			<p style="margin: 0;">日期</p>
+			        			<input class="laydate-icon_mb" id="date_mb1" value="{$begin_date|date='Y-m-d',###}" name="begin_date">
+					            <p style="margin: 0;">到</p>
+					            <input class="laydate-icon_mb" id="date_mb2" value="{$end_date|date='Y-m-d',###}" name="end_date">
+								<button  class="btn btn-success" type="submit">查询</button>
+					        </div>
+								<elseif condition="$begin_date eq is_null() "/>
+								<div class="date_mb_rt">
+									<p style="margin: 0;">日期</p>
+									<input class="laydate-icon_mb" id="date_mb1" name="begin_date">
+									<p style="margin: 0;">到</p>
+									<input class="laydate-icon_mb" id="date_mb2"  name="end_date">
+									<button  class="btn btn-success" type="submit">查询</button>
+								</div>
+							</if>
+				        </div>
+						</form>
+			        	<!--PC端表格-->
+			        	<div class="biaoge1 hidden-phone" style="margin-bottom: 30px; margin-top: 30px;">
+			        		<table class="table table-striped " style="">
+						        <thead>
+							        <tr>
+								        <th>序号</th>
+								        <th>提现金额(元)</th>
+								        <th>提现方式</th>
+								        <th>日期</th>
+								        <th>说明</th>
+										<th>增值税发票</th>
+										<th>发票审核状态</th>
+										<th>提现状态</th>
+										<th>汇款记录</th>
+
+							        </tr>
+						        </thead>
+						        <tbody>
+								<volist name="withdrawals" id="drawals">
+							        <tr>
+								        <td>{$drawals.id}</td>
+								        <td>{$drawals.pay_money}</td>
+								        <td><if condition="$drawals.tixian_type eq 0">支付宝提现<else/>对公账户提现</if></td>
+								        <td>{$drawals.pay_time|date='Y-m-d',###}</td>
+								        <td>{$drawals.pay_reason}</td>
+										<td><if condition="$drawals.fapiao neq is_null()"><a href="{$drawals.fapiao}" target="_blank">查看</a><else />无</if>
+											&nbsp;
+											<if condition="$drawals.fapiao_status eq -1"><a data-toggle="modal" data-target="#myModal2" id="chongxin-upload" attr-id="{$drawals.serial_number}" attr-fapiao="{$drawals.fapiao}">重新上传</a></if>
+											</td>
+										<td>
+											<if condition="$drawals.fapiao neq is_null()">
+												<if condition="$drawals.fapiao_status eq 0">
+													<span class="label label-warning" >审核中</span>
+													<elseif condition="$drawals.fapiao_status eq 1" />
+													<span class="label label-success"  >审核通过</span>
+													<elseif condition="$drawals.fapiao_status eq -1" />
+													<span class="label label-danger" >审核未通过</span>
+												</if>
+												<else />
+												<span class="label label-default" attr-id="{$drawals.serial_number}" >无发票信息</span>
+
+
+											</if>
+										</td>
+										<td><if condition="$drawals.pay_status eq 0">
+											<span class="label label-warning"  >提现中</span>
+											<elseif condition="$drawals.pay_status eq 1" />
+											<span class="label label-success"  >已提现</span>
+											<elseif condition="$drawals.pay_status eq -1" />
+											<span class="label label-danger" >提现失败</span>
+										</if></td>
+										<td class="lsjdofls"><if condition="$drawals.huidan neq is_null()"><a href="{$drawals.huidan}" target="_blank">查看回单</a>
+											<else />
+											<a href="#" id="jiaoyi-danhao" attr-danhao="{$drawals.details_number}" attr-money="{$drawals.pay_money}">交易号</a></if>
+										</td>
+							        </tr></volist>
+
+							        
+						        </tbody>
+						    </table>
+
+
+						</div>
+						<div class="pagination pagination-centered">{$pageRes}</div>
+	      				<!--移动端表格-->
+	      				<ul class="biaoge2 visible-phone">
+							<volist name="withdrawals" id="drawals">
+	      					<li>
+	      						<p>序号：{$drawals.id} <span style="float: right;">日期：{$drawals.pay_time|date='Y-m-d',###}</span></p>
+	      						<h4>提现金额：<font color="#1ca573">{$drawals.pay_money}</font></h4>
+	      						<p>说明：{$drawals.pay_reason}</p>
+	      						<p>提现方式：<if condition="$drawals.tixian_type eq 0">支付宝提现<else/>对公账户提现</if></p>
+	      						<p>状态：{$drawals.status}</p>
+	      						
+	      					</li>
+							</volist>
+
+
+	      				</ul>
+	      				
+	      				
+	      				
+			    	</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel2">重新上传增值税发票</h4>
+					</div>
+					<div class="modal-body">
+						<ul class="list-unstyled">
+							<input id="tixian-id" name="tixian-id" type="hidden" value="">
+							<li>
+
+								<img style="display: none" id="upload_org_code_img4" src="" width="150" height="150">
+								<input id="file_upload_image4" name="fapiao-chongxin" type="hidden" multiple="true" value="">
+								<br /><br />
+								<input id="file_upload4"  type="file" multiple="true" >
+							</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" id="upload-fapiao" data-dismiss="modal">立即上传</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">是否确认提现？</h4>
+			</div>
+			<if condition="$userinfo.account_status eq 1">
+				<div class="modal-body">
+					<ul class="list-unstyled">
+						<li id="tixian-money"><input type="hidden" value="{$duigong_money}" name="money_ach"><h4>上月对公可提现金额：<font color="#1ca573">{$duigong_money}元</font>&nbsp;&nbsp;</h4></li>
+						<li>&nbsp;</li>
+						<li class="radio-css">
+							<!--<div class="radio">
+								&lt;!&ndash;<label>
+									<input type="radio" name="optionsRadios" id="optionsRadios1" value="zhifubao" disabled>
+									提现到支付宝（速度快）
+								</label>&ndash;&gt;
+							</div>-->
+							<div class="radio">
+								<label>
+									<input type="radio" name="optionsRadios" id="optionsRadios2" value="duigongzhanghu" checked>
+									提现到对公账户（一月仅可提现一次，需邮寄增值税发票等资料）
+								</label>
+							</div>
+						</li>
+
+						<li>&nbsp;</li>
+						<li><b>公司名称：</b>{$userinfo.company_name}</li>
+						<li><b>开户银行：</b>{$userinfo.bank}</li>
+						<li><b>银行账号：</b>{$userinfo.bank_account}</li>
+						<li>&nbsp;</li>
+						<li id="tixian-detail"><b>提现详情：</b>{$duigong_moneydetail}</li>
+
+						<hr>
+						<li>开票抬头：{$gongsi.taitou}</li>
+						<li>开票税号：{$gongsi.shuihao}</li>
+						<li>发票邮寄地址：{$gongsi.dizhi}</li>
+						<li>邮寄收件人：{$gongsi.shoujianren}</li>
+						<li>联系电话：{$gongsi.dianhua}</li>
+
+
+						<li>&nbsp;</li>
+
+
+						<li id="fapiao-upload" >
+							<input id="file_upload3"  type="file" multiple="true" >
+							<img style="display: none; width:20%;height: 20%;" id="upload_org_code_img3" src="" >
+							<input id="file_upload_image3" name="fapiao" type="hidden" multiple="true" value="">
+						</li>
+
+						<li>&nbsp;</li>
+
+
+
+						<li><small>1.对公账户提现申请为每月1-15日</small></li>
+						<li><small>2.对公账户可提现金额为截止上月底未提现月的合计</small></li>
+						<li><small>3.对余额进行对公账户提现则需上传相应增值税发票</small></li>
+						<li><small>4.发票审核通过后财务才会对您的账户进行汇款</small></li>
+
+					</ul>
+				</div>
+
+
+				<else />
+
+
+				<div class="modal-body">
+					<ul class="list-unstyled">
+						<li id="tixian-money"><input type="hidden" value="{$money}" name="money_ach"><h4>可提现金额：<font color="#1ca573">{$money}元</font>&nbsp;&nbsp;</h4></li>
+						<li>&nbsp;</li>
+						<li class="radio-css">
+							<div class="radio">
+								<label>
+									<input type="radio" name="optionsRadios" id="optionsRadios1" value="zhifubao" checked>
+									提现到支付宝（速度快）
+								</label>
+							</div>
+							<!--<div class="radio">
+								&lt;!&ndash;<label>
+									<input type="radio" name="optionsRadios" id="optionsRadios2" value="duigongzhanghu" disabled>
+									提现到对公账户（一月仅可提现一次，需邮寄增值税发票等资料）
+								</label>&ndash;&gt;
+							</div>-->
+						</li>
+
+						<li>&nbsp;</li>
+						<li><b>支付宝实名：</b>{$userinfo.column_name}</li>
+						<li><b>支付宝账号：</b>{$userinfo.alipay_number}</li>
+						<li>&nbsp;</li>
+
+						<li id="tixian-detail"><b>提现详情：</b>{$moneydetail}</li>
+						<li>&nbsp;</li>
+
+						<li><small>1.提现以100元为单位，每提现一笔会收1%的服务费</small></li>
+						<li><small>2.当日业绩不在可提现范围内</small></li>
+						<li><small>3.每日00:00分至00:15分不可提交提现申请</small></li>
+						<li><small>6.本次提现预计到账时间为：{$estimate_time|date='Y-m-d H:i:s',###}</small></li>
+					</ul>
+				</div>
+			</if>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" onclick="Withdrawalsnow.check()" data-dismiss="modal">确认无误，立即提现</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+		<div class="container" style="margin-top: 10px;">
+			<hr>
+			<footer>
+	        	<p style="text-align: center;">© 2017 江苏中点通文化传媒有限公司 <a href="#" style="margin-left: 20px;">联系客服</a></p>
+	        </footer>
+		</div>
+	    
+	    <script>
+		!function(){
+		
+		//laydate.skin('molv');
+		
+		laydate({
+		   elem: '#date_pc1'
+		})
+		laydate({
+		   elem: '#date_pc2'
+		})
+		laydate({
+		   elem: '#date_mb1'
+		})
+		laydate({
+		   elem: '#date_mb2'
+		})
+		}();
+		</script>
+
+		<script>
+            /*$('.radio-css #optionsRadios1').click(function () {
+                //支付宝
+                $('#fapiao-upload').hide();
+                $('#tixian-money').html('<input type="hidden" value="{$money}" name="money_ach"><h4>可提现金额：<font color="#1ca573">{$money}元</font>&nbsp;&nbsp;</h4>');
+                $('#tixian-detail').html('<b>提现详情：</b>{$moneydetail}');
+                $('#info-tixian').html('<li>&nbsp;</li>' +
+					'<li><b>支付宝实名：</b>{$userinfo.column_name}</li>' +
+					'<li><b>支付宝账号：</b>{$userinfo.alipay_number}</li>' +
+					'<li>&nbsp;</li>');
+
+
+            });
+            $('.radio-css #optionsRadios2').click(function () {
+                //对公账户
+                var type = $(this).val();
+                $('#tixian-money').html('<input type="hidden" value="{$duigong_money}" name="money_ach"><h4>可提现金额：<font color="#1ca573">{$duigong_money}元</font>&nbsp;&nbsp;</h4>');
+                $('#info-tixian').html('<li>&nbsp;</li>' +
+					'<li><b>公司名称：</b>{$userinfo.company_name}</li>' +
+					'<li><b>开户银行：</b>{$userinfo.bank}</li>' +
+					'<li><b>银行账号：</b>{$userinfo.bank_account}</li>' +
+					'<li>&nbsp;</li>');
+                $('#fapiao-upload').show();
+                $('#tixian-detail').html('<b>提现详情：</b>{$duigong_moneydetail}');
+
+            });*/
+			$('#upload-fapiao').click(function () {
+				var serial_number = $('input[name = "tixian-id"]').val();
+				var fapiao = $('input[name = "fapiao-chongxin"]').val();
+				var data = {
+				    'serial_number' : serial_number,
+					'fapiao' : fapiao,
+				}
+				var postUrl = '/index.php?m=home&c=usermenu&a=upload_fapiao_again';
+
+                $.post(postUrl,data,function (result) {
+                    if(result.status == 0) {
+                        return dialog.msg(result.message);
+                    }else if(result.status == 1) {
+                        return dialog.msg_url(result.message,'');
+                    }
+                },'JSON');
+            });
+			$('#chongxin-upload').click(function () {
+				var id = $(this).attr('attr-id');
+				var fapiao = $(this).attr('attr-fapiao');
+				$('#tixian-id').attr('value',id);
+                $("#upload_org_code_img4").attr("src",fapiao);
+                $("#file_upload_image4").attr('value',fapiao);
+                $("#upload_org_code_img4").show();
+
+            });
+
+            $('.lsjdofls #jiaoyi-danhao').click(function () {
+
+                var danhao = $(this).attr('attr-danhao');
+                var money = $(this).attr('attr-money');
+
+                layer.open({
+                    type: 1,
+                    shade: false,
+                    title: false, //不显示标题
+                    content: '<p>&nbsp;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交易金额总计：'+money+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>' +
+                    '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;支付宝交易号：'+danhao+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>&nbsp;', //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                });
+            });
+
+            $('#tixian-button').click(function () {
+                var date = new Date ();
+				var month = date.getDate();
+				var hours = date.getHours();
+				var minutes = date.getMinutes();
+				var seconds = date.getSeconds();
+
+				var zhifubao = $(this).attr('attr-zhifubao');
+				var zhifubao_money = $(this).attr('attr-zhifubao-money');
+				var duigong = $(this).attr('attr-duigong');
+				var duigong_money = $(this).attr('attr-duigong-money');
+
+				if(hours == 0) {
+				    if(minutes < 15)
+                        return dialog.msg('每日00:00分至00:15分不可提交提现申请！');
+				}
+				if(duigong != 0) {
+					if(month > 15) {
+					 return dialog.msg('对公账户提现时间为每月1至15日！');
+					 }
+					 if(duigong_money == 0) {
+					    return dialog.msg('上月对公账户无可提现金额！');
+					 }
+				}else if(duigong == 0) {
+                    if(zhifubao_money == 0) {
+                        return dialog.msg('无足够余额可提现！');
+                    }
+                    if(!zhifubao) {
+                        return dialog.msg('请先绑定支付宝账户！');
+                    }
+				}
+                $('#myModal').modal('show');
+            });
+		</script>
+	</body>
+
+</html>

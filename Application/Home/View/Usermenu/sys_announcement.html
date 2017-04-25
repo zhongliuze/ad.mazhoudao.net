@@ -1,0 +1,53 @@
+<include file="Usermenu/nav" />
+		
+
+			    
+			    <div class="span10" style="margin-top: 20px;">
+			      <!--主体内容-->
+			        <div class="pc_rt">
+			        	<div class="page-header">
+				          <h3>系统公告</h3>
+				          <p><small>共有 {$count} 条</small></p>
+				        </div>
+
+
+						<volist name="notices" id="notice">
+			        	<div class="gonggao">
+				        	<div class="gg_lf">
+				        		<img src="__PUBLIC__/image/yqk_tx.png" width="60" height="60" />
+				        	</div>
+				        	<div class="gg_rt">
+								<h4><a href="{:U('/home/usermenu/sys_announcement_details')}?notice={$notice.notice_id}">{$notice.notice_title}</a></h4>
+				        		<p>{$notice.notice_content}</p>
+				        		<p><small>{$notice.notice_time|date="Y-m-d H:i:s",###}</small></p>
+				        	</div>
+				        </div>
+			        
+			        	<hr>
+						</volist>
+						<div class="pagination pagination-centered">{$pageRes}</div>
+			    	</div>
+			    </div>
+			    
+
+			    
+			  </div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="container" style="margin-top: 10px;">
+			<hr>
+			<footer>
+	        	<p style="text-align: center;">© 2017 江苏中点通文化传媒有限公司 <a href="#" style="margin-left: 20px;">联系客服</a></p>
+	        </footer>
+		</div>
+		
+		
+		
+		
+
+	</body>
+
+</html>

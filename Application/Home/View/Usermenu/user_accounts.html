@@ -1,0 +1,74 @@
+<include file="Usermenu/nav" />
+			    
+			    <div class="span10" style="margin-top: 20px;">
+			      <!--主体内容-->
+			        <div class="pc_rt">
+			        	<div class="page-header">
+				          <h3>我的账户</h3>
+				        </div>
+				        <p class="lead">基本信息</p>
+				        <dl class="dl-horizontal">
+				            <dt class="text-info">用户名：</dt>
+				            <dd>{$user.username}</dd>
+				            
+				            <dt class="text-info">UID：</dt>
+				            <dd>{$user.user_id}</dd>
+				            
+				            <dt class="text-info">微信公众号ID：</dt>
+				            <dd>{$user.public_name}</dd>
+				            
+				            <dt class="text-info">渠道号：</dt>
+				            <dd>{$user.c_number}</dd>
+			            </dl>
+			        
+			        	<hr>
+			        	
+			        	<p class="lead">提现账号信息</p>
+
+							<!--点击绑定按钮显示-->
+							<dl class="dl-horizontal">
+								<!--<dt class="text-info">公司（企业）名称：</dt>
+								<dd><input type="text" placeholder="输入您的公司名称" style="margin-bottom: 0; display: block;" name="company_name"></dd>-->
+
+								<dt class="text-info">支付宝名称：</dt>
+								<dd><input type="text" placeholder="您的支付宝用户名" style="margin-bottom: 0; display: block;" name="colum_name"></dd>
+
+								<dt class="text-info">支付宝账号：</dt>
+								<dd><input type="text" placeholder="输入您的支付宝账号" style="margin-bottom: 0; display: block;" name="alipay_number"></dd>
+								<dt class="text-info"></dt>
+								<dd><p><small>以上信息保存后不可修改，请您谨慎填写！</small></p></dd>
+
+
+								<button class="btn btn-large btn-primary" type="button" style="margin: auto; display: block; margin-top: 40px; max-width: 320px; width: 100%;" onclick="modify_account.check()">保存</button>
+							</dl>
+
+							<!--已绑定显示-->
+
+
+
+
+
+			        	
+			        	
+			        	
+	      				
+			    	</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="container" style="margin-top: 10px;">
+			<hr>
+			<footer>
+	        	<p style="text-align: center;">© 2017 江苏中点通文化传媒有限公司 <a href="#" style="margin-left: 20px;">联系客服</a></p>
+	        </footer>
+		</div>
+
+
+
+	</body>
+
+</html>

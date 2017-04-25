@@ -1,0 +1,55 @@
+<include file="Usermenu/nav" />
+			    
+			    <div class="span10" style="margin-top: 20px;">
+			      <!--主体内容-->
+			        <div class="pc_rt">
+			        	
+				        <div class="page-header">
+				          <!--<h4><a href="{:U('/home/usermenu/sys_announcement')}">« 返回</a></h4>-->
+							<h4><a href="<?php echo $_SESSION['sys_announcement_url'];?>">« 返回</a></h4>
+				        </div>
+				        
+				        
+				        
+				        <div class="gonggao">
+				        	<div class="ggxq_lf">
+				        		<img src="__PUBLIC__/image/yqk_tx.png" width="60" height="60" />
+				        	</div>
+				        	<div class="ggxq_rt">
+				        		<h4>{$notices.notice_title}</h4>
+				        		<p>{$notices.notice_content}</p>
+				        		<p><small>{$notices.notice_time|date="Y-m-d H:i:s",###}</small></p>
+				        	</div>
+				        </div>
+			        
+			        	<hr>
+			        	
+	      				
+			    	</div>
+			    </div>
+			    
+			    
+			    
+			    
+			    
+			    
+			    
+			  </div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="container" style="margin-top: 10px;">
+			<hr>
+			<footer>
+	        	<p style="text-align: center;">© 2017 江苏中点通文化传媒有限公司 <a href="#" style="margin-left: 20px;">联系客服</a></p>
+	        </footer>
+		</div>
+		
+		
+		
+
+	</body>
+
+</html>

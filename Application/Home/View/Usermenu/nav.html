@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <meta content="zh-cn" http-equiv="Content-language" />
+    <title>
+        <?php
+                    $action_name = $Think.ACTION_NAME;
+                ?>
+        <if condition="$action_name eq 'sys_announcement'">
+            系统公告
+            <elseif condition="$action_name eq 'index'" />
+            我的账户
+            <elseif condition="$action_name eq 'user_achievement'" />
+            渠道业绩
+            <elseif condition="$action_name eq 'user_underachievement'" />
+            下线业绩
+            <elseif condition="$action_name eq 'user_withdrawals'" />
+            我的提现
+            <elseif condition="$action_name eq 'user_underline'" />
+            我的下线
+            <elseif condition="$action_name eq 'download_matter'" />
+            素材下载
+        </if></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="__PUBLIC__/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/uploadify/uploadify.css">
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet">
+
+    <link href="__PUBLIC__/css/pagination.css" rel="stylesheet">
+
+
+    <script type="text/javascript" src="__PUBLIC__/js/jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/plugins/laydate/laydate.js"></script>
+
+    <script type="text/javascript" src="__PUBLIC__/plugins/laydate/laydate.js"></script>
+
+    <script type="text/javascript" src="__PUBLIC__/plugins/zclip/jquery.zclip.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/plugins/uploadify/jquery.uploadify.min.js" ></script>
+    <script type="text/javascript" src="__PUBLIC__/js/dialog/layer/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/dialog/dialog.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/home/common.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/home/wmcommon.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/home/image.js"></script>
+
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="navbar navbar-fixed-top" style="position: static;">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="{:U('/home/index/index')}" style="text-shadow: none;"><font color="#fb779f">中点通</font>推广网盟</a>
+            <div class="nav-collapse collapse visible-phone">
+                <ul class="nav">
+                    <li <if condition="$action_name eq 'sys_announcement'">class="active"</if>><a href="{:U('/home/usermenu/sys_announcement')}">系统公告</a></li>
+                    <li <if condition="$action_name eq 'index'">class="active"</if>><a href="{:U('/home/usermenu')}">我的账户</a></li>
+                    <li <if condition="$action_name eq 'user_achievement'">class="active"</if>><a href="{:U('/home/usermenu/user_achievement')}">渠道业绩</a></li>
+                    <li <if condition="$action_name eq 'user_underachievement'">class="active"</if>><a href="{:U('/home/usermenu/user_underachievement')}">下线业绩</a></li>
+                    <li <if condition="$action_name eq 'user_withdrawals'">class="active"</if>><a href="{:U('/home/usermenu/user_withdrawals')}">我的提现</a></li>
+                    <li <if condition="$action_name eq 'user_underline'">class="active"</if>><a href="{:U('/home/usermenu/user_underline')}">我的下线</a></li>
+                    <li <if condition="$action_name eq 'download_matter'">class="active"</if>><a href="{:U('/home/usermenu/download_matter')}">素材下载</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['adminUser']['username']?><small class="text-success"> (<?php echo $_SESSION['adminUser']['public_name']?>)</small> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            <li><a href="{:U('/home/login/loginout')}">退出系统</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div class="nav-collapse collapse hidden-phone" style="float: right;">
+                <ul class="nav">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['adminUser']['username']?><small class="text-success"> (<?php echo $_SESSION['adminUser']['public_name']?>)</small> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            <li><a href="{:U('/home/login/loginout')}">退出系统</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="container-fluid">
+        <div class="row-fluid">
+
+            <div class="span2 hidden-phone" style="margin-top: 20px;">
+                <!--边栏内容-->
+                <?php
+                    $action_name = $Think.ACTION_NAME;
+                ?>
+
+                <div class="pc_lf">
+                    <a <if condition="$action_name eq 'sys_announcement'">class="pc_lf_6 active"<else />class="pc_lf_6"</if> href="{:U('/home/usermenu/sys_announcement')}"><img src="__PUBLIC__/image/gg192.png"/>系统公告</a>
+                    <a <if condition="$action_name eq 'index'">class="pc_lf_6 active"<else />class="pc_lf_6"</if> href="{:U('/home/usermenu')}"><img src="__PUBLIC__/image/zh192.png"/>我的账户</a>
+                    <a <if condition="$action_name eq 'user_achievement'">class="pc_lf_6 active"<else />class="pc_lf_6"</if> href="{:U('/home/usermenu/user_achievement')}"><img src="__PUBLIC__/image/yj192.png"/>渠道业绩</a>
+                    <a <if condition="$action_name eq 'user_underachievement'">class="pc_lf_6 active"<else />class="pc_lf_6"</if> href="{:U('/home/usermenu/user_underachievement')}"><img src="__PUBLIC__/image/qd192.png"/>下线业绩</a>
+                    <a <if condition="$action_name eq 'user_withdrawals'">class="pc_lf_6 active"<else />class="pc_lf_6"</if> href="{:U('/home/usermenu/user_withdrawals')}"><img src="__PUBLIC__/image/tx192.png"/>我的提现</a>
+                    <a <if condition="$action_name eq 'user_underline'">class="pc_lf_6 active"<else />class="pc_lf_6"</if> href="{:U('/home/usermenu/user_underline')}"><img src="__PUBLIC__/image/xx192.png"/>我的下线</a>
+                    <a <if condition="$action_name eq 'download_matter'">class="pc_lf_6 active"<else />class="pc_lf_6"</if> href="{:U('/home/usermenu/download_matter')}"><img src="__PUBLIC__/image/sc192.png"/>素材下载</a>
+                </div>
+            </div>

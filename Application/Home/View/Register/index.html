@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<meta content="zh-cn" http-equiv="Content-language" />
+		<title>用户注册</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet" media="screen">
+		<link href="__PUBLIC__/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="__PUBLIC__/css/style.css" rel="stylesheet">
+
+		<script type="text/javascript" src="__PUBLIC__/js/jquery/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/bootstrap/bootstrap.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/plugins/hideShowPassword/vendor/modernizr.custom.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/plugins/hideShowPassword/hideShowPassword.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/dialog/layer/layer.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/dialog/dialog.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/home/register.js"></script>
+		
+		
+		
+	</head>
+
+	<body>
+		
+		
+		<!--注册-->
+		<div class="navbar navbar-inverse navbar-fixed-top" style="position: static;">
+	      <div class="navbar-inner">
+	        <div class="container">
+	          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <a class="brand" href="{:U('home/index/index')}">中点通推广网盟</a>
+	          <div class="nav-collapse collapse">
+	            <ul class="nav">
+					<li><a href="{:U('home/index/index')}">介绍</a></li>
+	              <li><a href="{:U('home/index/about')}">关于我们</a></li>
+	              <li><a href="{:U('home/index/contact')}">联系我们</a></li>
+	            </ul>
+	          </div><!--/.nav-collapse -->
+	        </div>
+	      </div>
+	    </div>
+		
+		<div class="container" style="margin-top: 60px;">
+
+	      <form class="form-signin">
+	        <h3 class="form-signin-heading">我要加盟</h2>
+	        <input type="text" class="input-block-level" placeholder="用户名" name="username">
+	        <!--<p>用户名不合法之类的</p>-->
+	        <input type="text" class="input-block-level" placeholder="微信公众号ID" name="public_name">
+	        <!--<p>用户名不合法之类的</p>-->
+	        <div style="position: relative;">
+
+		        <input type="password" class="input-block-level" placeholder="设置登录密码（不少于6位）" name="password" id="password-1">
+		        <!--<p>错误信息</p>-->
+	        </div>
+				<label>
+					<input type="hidden" name="introducer_id" value="{$introducer}" />
+				</label>
+	        
+	        <input type="text" name="vercode" class="input-small" placeholder="验证码" style="width: 50%; display: inline-block;">
+	        <a class="yanzhengma" href="#" id="ver_code"><img src='{:U("home/login/verify")}' id="ver_code_img"  alt="请点击刷新验证码" title="点击刷新验证码" onclick="this.src='/index.php/home/login/verify.html?id=' + Math.random();"/></a>
+	        <!--<p>错误信息</p>-->
+	        
+	        <label class="checkbox">
+	          <input type="checkbox" name="checkbox" value="checked" checked="checked">我已阅读并同意<a href="#">《言情控推广网盟协议》</a>
+	        </label>
+	        <button class="btn btn-large btn-primary btn-block" type="button" onclick="Register.check()">注册</button>
+	        <a class="btn btn-large btn btn-block" type="button" style="margin-top: 16px;" href="{:U('/home/login')}">已有账号？直接登录</a>
+	      </form>
+	
+	    </div>
+		
+		<div class="container" style="margin-top: 10px;">
+			<hr>
+			<footer>
+	        	<p style="text-align: center;">© 2017 江苏中点通文化传媒有限公司</p>
+	        </footer>
+		</div>
+		
+		
+		<!--注册结束-->
+
+
+		<script type="text/javascript">
+            $('#password-1').hideShowPassword({
+                innerToggle: true,
+                touchSupport: Modernizr.touch
+            });
+		</script>
+
+
+	</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<meta content="zh-cn" http-equiv="Content-language" />
+		<title>中点通推广网盟-关于我们</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet" media="screen">
+		<link href="__PUBLIC__/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="__PUBLIC__/css/style.css" rel="stylesheet">
+
+		<script src="__PUBLIC__/js/jquery/jquery-1.11.3.min.js"></script>
+		<script src="__PUBLIC__/js/bootstrap/bootstrap.js"></script>
+		
+		<style type="text/css">
+			.row-fluid .span6 { }
+		</style>
+		
+		
+	</head>
+
+	<body>
+		
+		
+		
+		
+		
+		<div class="container">
+			<a href="#"><img style="position: absolute; z-index: 9999; top: 20px; width: 180px; height: 50px;" src="__PUBLIC__/image/yqkwm_logo.png"/></a>
+		</div>
+		
+		<div id="myCarousel" class="carousel slide" style="margin-bottom: 0;">
+				
+	      <div class="carousel-inner">
+	      	
+	        
+	       
+	        
+	        <div class="item active">
+	          
+	          <img src="__PUBLIC__/image/bnbg.jpg" alt="">
+	          <div class="container">
+	            <div class="carousel-caption">
+	            	
+	              <!--登陆后PC端显示-->
+	              <p class="hidden-phone" style="position: absolute; z-index: 99999; top: 20px; right: 20px;">
+					  <span><?php echo $_SESSION['adminUser']['username']?></span> <?php if($_SESSION['adminUser']['username']) { ?>
+					  <a href="{:U('/home/login/loginout')}" style="margin-left: 10px;">退出</a>
+					  <?php } ?>
+		          </p>
+		          
+	              <h1>强强联盟 优势互联</h1>
+	              <p class="lead">全国网络小说网络联盟</p>
+	              <p class="lead">一种内容、多元版权、同步营销</p>
+
+
+					<?php if(!$_SESSION['adminUser']['username']) { ?>
+					<a class="btn btn-large btn-primary" href="{:U('/home/register')}" >我要加盟</a>
+					<a class="btn btn-large" href="{:U('/home/login')}" style="margin-left: 20px; background:fixed; text-shadow: none; border: solid 1px rgba(0,0,0,.5); background-color: rgba(0,0,0,.6); color: #fff;" >登录</a>
+					<?php } ?>
+					<?php if($_SESSION['adminUser']['username']) { ?>
+					<a class="btn btn-large btn-primary" href="{:U('/home/usermenu')}" >进入后台</a>
+					<?php } ?>
+
+					<!--登陆后移动端显示-->
+				  <p class="visible-phone" style="margin-top: 20px; font-size: 14px;">
+					  <span><a href="{:U('/home/usermenu')}"><?php echo $_SESSION['adminUser']['username']?></a></span> <?php if($_SESSION['adminUser']['username']) { ?>
+					  <a href="{:U('/home/login/loginout')}" style="margin-left: 10px;">退出</a>
+					  <?php } ?>
+		          </p>
+		          
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      
+	      
+	    </div>
+		
+		
+		<div class="navbar navbar-inverse navbar-fixed-top" style="position: static;">
+	      <div class="navbar-inner">
+	        <div class="container">
+	          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+				<a class="brand" href="{:U('/home/index')}">中点通推广网盟</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li ><a href="{:U('/home/index')}">介绍</a></li>
+						<li class="active"><a href="{:U('/home/index/about')}">关于我们</a></li>
+						<li><a href="{:U('/home/index/contact')}">联系我们</a></li>
+	              
+	            </ul>
+	          </div><!--/.nav-collapse -->
+	        </div>
+	      </div>
+	    </div>
+		
+		<!--PC端显示-->
+		
+		
+		<div class="container hidden-phone" style="margin-top: 30px;">
+			<h2>关于我们</h2>
+	      
+		    
+			<div class="zyfl" style="margin-top: 30px;">
+				
+                <p>中点通创建于2016年5月，是集创作、阅读、作品加工为一体的女性小说阅读综合平台。</p>
+			    <p>中点通秉承着为用户提供最好的言情小说阅读体验平台，打造优秀言情小说阅读基地的理念，在网络文学界走出了一条专业化的发展道路。</p>
+		        <p>我们拥有完善的作品管理系统、高创作水准的原创书库和小说包装功能，致力于为读者营造良好网上阅读环境。</p>
+                
+				
+		       
+	        </div>
+	        <hr>
+		</div>
+		
+		
+		
+		
+		<!--移动端显示-->
+		
+		
+		<div class="container visible-phone" style="margin-top: 30px;">
+
+	      <h2>关于我们</h2>
+	      
+		 
+		  
+		  <p>中点通创建于2016年5月，是集创作、阅读、作品加工为一体的女性小说阅读综合平台。</p>
+		  <p>中点通秉承着为用户提供最好的言情小说阅读体验平台，打造优秀言情小说阅读基地的理念，在网络文学界走出了一条专业化的发展道路。</p>
+		  <p>我们拥有完善的作品管理系统、高创作水准的原创书库和小说包装功能，致力于为读者营造良好网上阅读环境。</p>
+		  
+	      <hr>
+		</div>
+		
+		
+		
+		
+		
+		<div class="container" style="margin-top: 10px;">
+			
+			<footer>
+	        	<p style="text-align: center;">© 2017 江苏中点通文化传媒有限公司</p>
+	        </footer>
+		</div>
+
+	</body>
+
+</html>
